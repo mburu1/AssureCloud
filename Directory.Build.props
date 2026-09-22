@@ -1,0 +1,36 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AnalyzeCondition>{
+      $(Configuration) == 'Release' and
+      $(ContinuousIntegrationBuild) == 'true'
+    }</AnalyzeCondition>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>CS1591,CS1570,CS8600,CS8601,CS8602,CS8603,CS8604,CS8605</WarningsNotAsErrors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>CS1591</NoWarn>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <IlcFramerOptimization>true</IlcFramerOptimization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.CompilerServices">
+      <_Parameter1>Globals</_Parameter1>
+      <_Parameter2 />
+    </AssemblyAttribute>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,131 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/workspace-schema.json",
+  "version": 1,
+  "cli": {
+    "defaultCollection": "@angular/material:standalone"
+  },
+  "schematics": {
+    "application": {
+      "cdk": false,
+      "skipTests": false,
+      "strict": true,
+      "standalone": true,
+      "skipModule": true
+    },
+    "Component": {
+      "skipTests": true
+    },
+    "Directive": {
+      "skipTests": true
+    },
+    "Pipe": {
+      "skipTests": true
+    }
+  },
+  "projects": {
+    "assurecloud-web": {
+      "projectType": "application",
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "prefixScope": true,
+      "i18nMissingFilePath": "src/locale/messages.en.xlf",
+      "tags": ["standalone", "strict"],
+      "targets": {
+        "build": {
+          "builder": "@angular/build:application",
+          "configuration": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.production.ts"
+                }
+              ],
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": {
+                    "inlineCritical": false
+                  }
+                },
+                "fonts": true
+              },
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "vendorChunk": false,
+              "extractLicenses": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarningSize": "500kb",
+                  "maximumErrorSize": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarningSize": "2kb",
+                  "maximumErrorSize": "4kb"
+                }
+              ]
+            },
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ],
+              "outputHashing": "none",
+              "sourceMap": true,
+              "namedChunks": true,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "watchDependencies": true,
+              "buildOptimizer": false
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "serve": {
+          "builder": "@angular/build:run-dev-web-server",
+          "configuration": {
+            "production": {
+              "browserTarget": "assurecloud-web:build:production"
+            },
+            "development": {
+              "browserTarget": "assurecloud-web:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:run-unit-tests-in-engine",
+          "options": {
+            "codeCoverage": false,
+            "webWorkerTsConfig": "tsconfig.spec.json",
+            "tsConfig": "tsconfig.spec.json",
+            "assets": ["src/favicon.ico", "src/assets", "src/robots.txt"],
+            "browsers": "chrome",
+            "polyfills": "zone.js"
+          },
+          "configurations": {
+            "ci": {
+              "codeCoverage": true,
+              "watch": false
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular/build:lint",
+          "options": {
+            "tsConfig": ["tsconfig.json"]
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        }
+      }
+    }
+  }
+}

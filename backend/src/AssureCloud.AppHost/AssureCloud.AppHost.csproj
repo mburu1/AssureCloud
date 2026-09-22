@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyTitle>AssureCloud AppHost</AssemblyTitle>
+    <Description>.NET Aspire application host for local development orchestration of AssureCloud services</Description>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AssureCloud.Api\AssureCloud.Api.csproj" />
+    <ProjectReference Include="..\AssureCloud.Infrastructure\AssureCloud.Infrastructure.csproj" />
+    <ProjectReference Include="..\AssureCloud.Messaging\AssureCloud.Messaging.csproj" />
+    <ProjectReference Include="..\AssureCloud.Mvc\AssureCloud.Mvc.csproj" />
+    <ProjectReference Include="..\AssureCloud.Workers\AssureCloud.Workers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.App" Version="9.0.0" />
+    <PackageReference Include="Aspire.Hosting.Database.AzureSqlServer" Version="9.0.0" />
+    <PackageReference Include="Aspire.Hosting.Messaging.AzureServiceBus" Version="9.0.0" />
+    <PackageReference Include="Aspire.Hosting.Caching.Redis" Version="9.0.0" />
+    <PackageReference Include="Aspire.Hosting.KeyVault" Version="9.0.0" />
+    <PackageReference Include="Aspire.Hosting.Azure.AppConfiguration" Version="9.0.0" />
+    <PackageReference Include="Aspire.Hosting.OpenTelemetry" Version="9.0.0" />
+  </ItemGroup>
+
+</Project>

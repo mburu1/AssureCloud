@@ -1,0 +1,19 @@
+<Project>
+  <PropertyGroup>
+    <BuildDependsOn>$(BuildDependsOn);EnforceCodeStyleInBuildTarget</BuildDependsOn>
+  </PropertyGroup>
+
+  <Target Name="EnforceCodeStyleInBuildTarget" Condition="'$(EnforceCodeStyleInBuild)' == 'true' and '$(Configuration)' == 'Release'">
+    <ItemGroup>
+      <TreeEntry Include="$(MSBuildProjectDirectory)\**\*.cs" />
+    </ItemGroup>
+  </Target>
+
+  <PropertyGroup>
+    <AllowedOutputAssembliesforNativeHosting>all</AllowedOutputAssembliesforNativeHosting>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <SuppressTfmSupportBuildLogging>true</SuppressTfmSupportBuildLogging>
+  </PropertyGroup>
+</Project>

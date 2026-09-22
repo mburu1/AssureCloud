@@ -1,0 +1,102 @@
+name: assurecloud
+
+services:
+  api:
+    image: assurecloud.api:latest
+    build:
+      context: ./backend/src/AssureCloud.Api
+      dockerfile: ../../infrastructure/docker/api/Dockerfile
+    ports:
+      - "5110:8080"
+      - "5111:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - sql
+      - rabbitmq
+
+  mvc:
+    image: assurecloud.mvc:latest
+    build:
+      context: ./backend/src/AssureCloud.Mvc
+      dockerfile: ../../infrastructure/docker/mvc/Dockerfile
+    ports:
+      - "5010:8080"
+      - "5011:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - sql
+      - rabbitmq
+
+  worker-assessment:
+    image: assurecloud.worker.assessment:latest
+    build:
+      context: ./backend/src/AssureCloud.Workers
+      dockerfile: ../../infrastructure/docker/worker/Dockerfile
+      args:
+        - WORKER_PROJECT=AssureCloud.Workers.Assessment
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - rabbitmq
+      - sql
+
+  worker-notifications:
+    image: assurecloud.worker.notifications:latest
+    build:
+      context: ./backend/src/AssureCloud.Workers
+      dockerfile: ../../infrastructure/docker/worker/Dockerfile
+      args:
+        - WORKER_PROJECT=AssureCloud.Workers.Notifications
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - rabbitmq
+
+  web:
+    image: assurecloud-web:latest
+    build:
+      context: ./frontend/assurecloud-web
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+    depends_on:
+      - api
+
+  sql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=S
+      - SA_PASSWORD=YourStrong!Passw0rd
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql-data:/var/opt/mssql
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    command: start-dev
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    ports:
+      - "8080:8080"
+
+volumes:
+  mssql-data:
+  rabbitmq-data:

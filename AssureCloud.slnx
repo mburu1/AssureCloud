@@ -1,0 +1,28 @@
+Project("{9A19103F-16F7-4668-BE54-9A1E7A48F05D}") = "AssureCloud.Api", "backend/src/AssureCloud.Api/AssureCloud.Api.csproj", "{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A48F05D}") = "AssureCloud.Mvc", "backend/src/AssureCloud.Mvc/AssureCloud.Mvc.csproj", "{B2C3D4E5-F6A7-8910-BCDE-F12345678901}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A48F05D}") = "AssureCloud.Application", "backend/src/AssureCloud.Application/AssureCloud.Application.csproj", "{C3D4E5F6-A7B8-9012-CDEF-123456789012}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A48F05D}") = "AssureCloud.Domain", "backend/src/AssureCloud.Domain/AssureCloud.Domain.csproj", "{D4E5F6A7-B8C9-0123-DEF0-234567890123}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A48F05D}") = "AssureCloud.Infrastructure", "backend/src/AssureCloud.Infrastructure/AssureCloud.Infrastructure.csproj", "{E5F6A7B8-C9D0-1234-EF01-345678901234}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A48F05D}") = "AssureCloud.Messaging", "backend/src/AssureCloud.Messaging/AssureCloud.Messaging.csproj", "{F6A7B8C9-D0E1-2345-F012-456789012345}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A48F05D}") = "AssureCloud.Workers", "backend/src/AssureCloud.Workers/AssureCloud.Workers.csproj", "{A7B8C9D0-E1F2-3456-0123-567890123456}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A48F05D}") = "AssureCloud.AppHost", "backend/src/AssureCloud.AppHost/AssureCloud.AppHost.csproj", "{B8C9D0E1-F2A3-4567-1234-678901234567}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A48F05D}") = "AssureCloud.UnitTests", "backend/tests/AssureCloud.UnitTests/AssureCloud.UnitTests.csproj", "{C9D0E1F2-A3B4-5678-2345-789012345678}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A48F05D}") = "AssureCloud.ApplicationTests", "backend/tests/AssureCloud.ApplicationTests/AssureCloud.ApplicationTests.csproj", "{D0E1F2A3-B4C5-6789-3456-890123456789}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A48F05D}") = "AssureCloud.IntegrationTests", "backend/tests/AssureCloud.IntegrationTests/AssureCloud.IntegrationTests.csproj", "{E1F2A3B4-C5D6-7890-4567-901234567890}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A48F05D}") = "AssureCloud.ApiTests", "backend/tests/AssureCloud.ApiTests/AssureCloud.ApiTests.csproj", "{F2A3B4C5-D6E7-8901-5678-012345678901}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A48F05D}") = "AssureCloud.ArchitectureTests", "backend/tests/AssureCloud.ArchitectureTests/AssureCloud.ArchitectureTests.csproj", "{A3B4C5D6-E7F8-9012-6789-123456789012}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A48F05D}") = "AssureCloud.EndToEndTests", "backend/tests/AssureCloud.EndToEndTests/AssureCloud.EndToEndTests.csproj", "{B4C5D6E7-F8A9-0123-7890-234567890123}"
+EndProject

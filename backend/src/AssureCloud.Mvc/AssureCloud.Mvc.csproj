@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyTitle>AssureCloud MVC Web</AssemblyTitle>
+    <Description>Server-rendered MVC web application for AssureCloud platform</Description>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AssureCloud.Application\AssureCloud.Application.csproj" />
+    <ProjectReference Include="..\AssureCloud.Domain\AssureCloud.Domain.csproj" />
+    <ProjectReference Include="..\AssureCloud.Infrastructure\AssureCloud.Infrastructure.csproj" />
+    <ProjectReference Include="..\AssureCloud.Messaging\AssureCloud.Messaging.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="9.0.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="12.0.0" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+    <PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="9.0.0" />
+    <PackageReference Include="OpenTelemetry.Exporter.Jaeger" Version="9.0.0" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="9.0.0" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="9.0.0" />
+    <PackageReference Include="AspNetCoreRateLimit" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.HttpLogging" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
