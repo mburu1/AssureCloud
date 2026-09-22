@@ -1,0 +1,151 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: assurecloud-sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Passw0rd
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P "YourStrong@Passw0rd" -Q "SELECT 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: assurecloud-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: redis-cli ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  servicebus:
+    image: mcr.microsoft.com/azure-messaging/servicebus-emulator:latest
+    container_name: assurecloud-servicebus
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - "5672:5672"
+      - "9354:9354"
+    healthcheck:
+      test: curl -f http://localhost:9354/health || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  identityserver:
+    image: duende/identityserver:latest
+    container_name: assurecloud-identityserver
+    environment:
+      - IDENTITYSERVER_LICENSE=
+    ports:
+      - "5000:80"
+      - "5001:443"
+    volumes:
+      - ./identityserver:/app/config
+    depends_on:
+      - sqlserver
+
+  api:
+    build:
+      context: .
+      dockerfile: src/AssureCloud.Api/Dockerfile
+    container_name: assurecloud-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=AssureCloud;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=true
+      - Messaging__ConnectionString=Endpoint=sb://servicebus;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SAS_KEY_VALUE;UseDevelopmentEmulator=true
+      - IdentityServer__Authority=http://identityserver
+      - IdentityServer__Audience=assurecloud-api
+      - Cors__AllowedOrigins__0=http://localhost:4200
+      - Cors__AllowedOrigins__1=http://localhost:5000
+      - FileStorage__BasePath=/app/uploads
+      - FileStorage__BaseUrl=/uploads
+    ports:
+      - "7001:8080"
+      - "7002:8081"
+    volumes:
+      - api_uploads:/app/uploads
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      servicebus:
+        condition: service_healthy
+      identityserver:
+        condition: service_started
+
+  mvc:
+    build:
+      context: .
+      dockerfile: src/AssureCloud.Mvc/Dockerfile
+    container_name: assurecloud-mvc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=AssureCloud;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=true
+      - Messaging__ConnectionString=Endpoint=sb://servicebus;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SAS_KEY_VALUE;UseDevelopmentEmulator=true
+      - IdentityServer__Authority=http://identityserver
+      - IdentityServer__MvcClientId=assurecloud-mvc
+      - IdentityServer__MvcClientSecret=secret
+      - Api__BaseUrl=http://api:8080
+    ports:
+      - "5000:8080"
+    depends_on:
+      - api
+      - identityserver
+
+  workers:
+    build:
+      context: .
+      dockerfile: src/AssureCloud.Workers/Dockerfile
+    container_name: assurecloud-workers
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=AssureCloud;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=true
+      - Messaging__ConnectionString=Endpoint=sb://servicebus;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SAS_KEY_VALUE;UseDevelopmentEmulator=true
+      - IdentityServer__Authority=http://identityserver
+      - IdentityServer__Audience=assurecloud-api
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      servicebus:
+        condition: service_healthy
+      identityserver:
+        condition: service_started
+
+  messaging:
+    build:
+      context: .
+      dockerfile: src/AssureCloud.Messaging/Dockerfile
+    container_name: assurecloud-messaging
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=AssureCloud;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;MultipleActiveResultSets=true
+      - Messaging__ConnectionString=Endpoint=sb://servicebus;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SAS_KEY_VALUE;UseDevelopmentEmulator=true
+      - IdentityServer__Authority=http://identityserver
+      - IdentityServer__Audience=assurecloud-api
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      servicebus:
+        condition: service_healthy
+      identityserver:
+        condition: service_started
+
+volumes:
+  sqlserver_data:
+  redis_data:
+  api_uploads:

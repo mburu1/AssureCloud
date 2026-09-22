@@ -1,0 +1,11 @@
+{
+  "sdk": {
+    "version": "9.0.100",
+    "rollForward": "latestMinor",
+    "allowPrerelease": false
+  },
+  "msbuild-sdks": {
+    "Microsoft.DotNet.Helix.Sdk": "6.0.0",
+    "Microsoft.NET.Build.Containers": "9.0.0"
+  }
+}
