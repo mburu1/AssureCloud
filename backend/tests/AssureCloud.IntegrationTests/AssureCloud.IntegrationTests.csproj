@@ -8,9 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\AssureCloud.Application\AssureCloud.Application.csproj" />
-    <ProjectReference Include="..\..\..\src\AssureCloud.Domain\AssureCloud.Domain.csproj" />
-    <ProjectReference Include="..\..\..\src\AssureCloud.Infrastructure\AssureCloud.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\AssureCloud.Application\AssureCloud.Application.csproj" />
+    <ProjectReference Include="..\..\src\AssureCloud.Domain\AssureCloud.Domain.csproj" />
+    <ProjectReference Include="..\..\src\AssureCloud.Infrastructure\AssureCloud.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,7 +20,7 @@
     <PackageReference Include="coverlet.collector" Version="6.0.2" />
     <PackageReference Include="FluentAssertions" Version="8.0.0" />
     <PackageReference Include="Moq" Version="4.20.70" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.0" />
     <PackageReference Include="Testcontainers" Version="3.9.0" />
     <PackageReference Include="Testcontainers.MSSQL" Version="3.9.0" />
   </ItemGroup>

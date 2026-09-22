@@ -14,12 +14,38 @@ public class AssureCloudDbContext : IdentityDbContext<AssureCloudUser>
     {
     }
 
+    // Organization
     public DbSet<Organization> Organizations { get; set; }
+    public DbSet<OrganizationLocation> OrganizationLocations { get; set; }
+    public DbSet<Supplier> Suppliers { get; set; }
+    public DbSet<User> Users { get; set; }
+
+    // Programs
     public DbSet<Program> Programs { get; set; }
+    public DbSet<Standard> Standards { get; set; }
+    public DbSet<Requirement> Requirements { get; set; }
+    public DbSet<Criterion> Criteria { get; set; }
+    public DbSet<Control> Controls { get; set; }
+
+    // Assessments
     public DbSet<Assessment> Assessments { get; set; }
-    public DbSet<Audit> Audits { get; set; }
-    public DbSet<Certification> Certifications { get; set; }
+    public DbSet<AssessmentResponse> AssessmentResponses { get; set; }
     public DbSet<Evidence> Evidence { get; set; }
+    public DbSet<Finding> Findings { get; set; }
+    public DbSet<AssessmentAssignment> AssessmentAssignments { get; set; }
+
+    // Audits
+    public DbSet<Audit> Audits { get; set; }
+    public DbSet<AuditFinding> AuditFindings { get; set; }
+    public DbSet<CorrectiveAction> CorrectiveActions { get; set; }
+    public DbSet<AuditAssignment> AuditAssignments { get; set; }
+
+    // Certifications
+    public DbSet<Certification> Certifications { get; set; }
+    public DbSet<CertificationDecision> CertificationDecisions { get; set; }
+    public DbSet<CertificationScope> CertificationScopes { get; set; }
+
+    // Reports
     public DbSet<Report> Reports { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)

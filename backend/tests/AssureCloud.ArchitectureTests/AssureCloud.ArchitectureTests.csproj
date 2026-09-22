@@ -8,9 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\AssureCloud.Application\AssureCloud.Application.csproj" />
-    <ProjectReference Include="..\..\..\src\AssureCloud.Domain\AssureCloud.Domain.csproj" />
-    <ProjectReference Include="..\..\..\src\AssureCloud.Infrastructure\AssureCloud.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\AssureCloud.Application\AssureCloud.Application.csproj" />
+    <ProjectReference Include="..\..\src\AssureCloud.Domain\AssureCloud.Domain.csproj" />
+    <ProjectReference Include="..\..\src\AssureCloud.Infrastructure\AssureCloud.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

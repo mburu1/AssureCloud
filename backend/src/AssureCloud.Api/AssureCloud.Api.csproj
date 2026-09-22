@@ -17,22 +17,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="12.0.0" />
     <PackageReference Include="MediatR" Version="12.4.1" />
-    <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
-    <PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="9.0.0" />
-    <PackageReference Include="OpenTelemetry.Exporter.Jaeger" Version="9.0.0" />
-    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="9.0.0" />
-    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="9.0.0" />
-    <PackageReference Include="OpenTelemetry.Instrumentation.HttpClient" Version="9.0.0" />
-    <PackageReference Include="OpenTelemetry.Instrumentation.SqlClient" Version="9.0.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+    <PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.19.1-beta.1" />
+<PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.19.0" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.19.0" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.19.0" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.SqlClient" Version="1.19.0" />
     <PackageReference Include="AspNetCoreRateLimit" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="9.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.HttpOverrides" Version="9.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.HttpLogging" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="10.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.HttpOverrides" Version="10.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.HttpLogging" Version="10.0.0" />
     <PackageReference Include="Elastic.Apm.NetFx" Version="1.6.0" />
   </ItemGroup>
 
