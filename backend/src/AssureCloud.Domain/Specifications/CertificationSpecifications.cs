@@ -10,70 +10,94 @@ public static class CertificationSpecifications
 {
     public static Specification<Certification> ById(Guid id)
     {
-        return new Specification<Certification>(x => x.Id == id);
+        var spec = new Specification<Certification>();
+        spec.Query.Where(x => x.Id == id);
+        return spec;
     }
 
     public static Specification<Certification> ByOrganization(Guid organizationId)
     {
-        return new Specification<Certification>(x => x.OrganizationId == organizationId);
+        var spec = new Specification<Certification>();
+        spec.Query.Where(x => x.OrganizationId == organizationId);
+        return spec;
     }
 
     public static Specification<Certification> ByProgram(Guid programId)
     {
-        return new Specification<Certification>(x => x.ProgramId == programId);
+        var spec = new Specification<Certification>();
+        spec.Query.Where(x => x.ProgramId == programId);
+        return spec;
     }
 
     public static Specification<Certification> ByStatus(CertificationStatus status)
     {
-        return new Specification<Certification>(x => x.Status == status);
+        var spec = new Specification<Certification>();
+        spec.Query.Where(x => x.Status == status);
+        return spec;
     }
 
     public static Specification<Certification> Active()
     {
-        return new Specification<Certification>(x => x.Status == CertificationStatus.Issued);
+        var spec = new Specification<Certification>();
+        spec.Query.Where(x => x.Status == CertificationStatus.Issued);
+        return spec;
     }
 
     public static Specification<Certification> Expired()
     {
-        return new Specification<Certification>(x =>
+        var spec = new Specification<Certification>();
+        spec.Query.Where(x =>
             x.ExpirationDate.HasValue && x.ExpirationDate.Value < DateTime.UtcNow);
+        return spec;
     }
 
     public static Specification<Certification> ExpiringSoon(int days = 90)
     {
+        var spec = new Specification<Certification>();
         var cutoffDate = DateTime.UtcNow.AddDays(days);
-        return new Specification<Certification>(x =>
+        spec.Query.Where(x =>
             x.ExpirationDate.HasValue &&
             x.ExpirationDate.Value <= cutoffDate &&
             x.ExpirationDate.Value >= DateTime.UtcNow &&
             x.Status == CertificationStatus.Issued);
+        return spec;
     }
 
     public static Specification<Certification> Suspended()
     {
-        return new Specification<Certification>(x => x.Status == CertificationStatus.Suspended);
+        var spec = new Specification<Certification>();
+        spec.Query.Where(x => x.Status == CertificationStatus.Suspended);
+        return spec;
     }
 
     public static Specification<Certification> Revoked()
     {
-        return new Specification<Certification>(x => x.Status == CertificationStatus.Revoked);
+        var spec = new Specification<Certification>();
+        spec.Query.Where(x => x.Status == CertificationStatus.Revoked);
+        return spec;
     }
 
     public static Specification<Certification> ByCertificateNumber(string certificateNumber)
     {
-        return new Specification<Certification>(x => x.CertificateNumber == certificateNumber);
+        var spec = new Specification<Certification>();
+        spec.Query.Where(x => x.CertificateNumber == certificateNumber);
+        return spec;
     }
 
     public static Specification<Certification> SurveillanceDue()
     {
-        return new Specification<Certification>(x =>
+        var spec = new Specification<Certification>();
+        spec.Query.Where(x =>
             x.NextSurveillanceDue.HasValue &&
             x.NextSurveillanceDue.Value <= DateTime.UtcNow &&
             x.Status == CertificationStatus.Issued);
+        return spec;
     }
 
     public static Specification<Certification> WithDecisions()
     {
-        return new Specification<Certification>(x => x.Decisions.Any());
+        var spec = new Specification<Certification>();
+        spec.Query.Where(x => x.Decisions.Any());
+        return spec;
     }
 }

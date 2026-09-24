@@ -12,7 +12,7 @@ public class Report : BaseEntity
     public Guid? CertificationId { get; private set; }
     public string Title { get; private set; } = string.Empty;
     public string? Description { get; private set; }
-    public ReportType Type { get; private set; }
+    public ReportType? Type { get; private set; }
     public ReportStatus Status { get; private set; } = ReportStatus.Draft;
     public string? FileUrl { get; private set; }
     public string? MimeType { get; private set; }
@@ -82,7 +82,7 @@ public class Report : BaseEntity
 
     public Report CreateNewVersion(string title, string? description)
     {
-        var newReport = new Report(OrganizationId, title, Type, ProgramId, AssessmentId, AuditId, CertificationId, description)
+        var newReport = new Report(OrganizationId, title, Type!, ProgramId, AssessmentId, AuditId, CertificationId, description)
         {
             Version = Version + 1
         };

@@ -170,7 +170,7 @@ public class AssessmentAssignment : BaseEntity
 {
     public Guid AssessmentId { get; private set; }
     public Guid AssessorId { get; private set; }
-    public AssessmentRole Role { get; private set; }
+    public AssessmentRole? Role { get; private set; }
     public DateTime AssignedAt { get; private set; } = DateTime.UtcNow;
     public DateTime? RemovedAt { get; private set; }
 

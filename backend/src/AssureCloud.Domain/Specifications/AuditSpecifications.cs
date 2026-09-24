@@ -10,85 +10,113 @@ public static class AuditSpecifications
 {
     public static Specification<Audit> ById(Guid id)
     {
-        return new Specification<Audit>(x => x.Id == id);
+        var spec = new Specification<Audit>();
+        spec.Query.Where(x => x.Id == id);
+        return spec;
     }
 
     public static Specification<Audit> ByOrganization(Guid organizationId)
     {
-        return new Specification<Audit>(x => x.OrganizationId == organizationId);
+        var spec = new Specification<Audit>();
+        spec.Query.Where(x => x.OrganizationId == organizationId);
+        return spec;
     }
 
     public static Specification<Audit> ByAssessment(Guid assessmentId)
     {
-        return new Specification<Audit>(x => x.AssessmentId == assessmentId);
+        var spec = new Specification<Audit>();
+        spec.Query.Where(x => x.AssessmentId == assessmentId);
+        return spec;
     }
 
     public static Specification<Audit> ByStatus(AuditStatus status)
     {
-        return new Specification<Audit>(x => x.Status == status);
+        var spec = new Specification<Audit>();
+        spec.Query.Where(x => x.Status == status);
+        return spec;
     }
 
     public static Specification<Audit> ByType(AuditType type)
     {
-        return new Specification<Audit>(x => x.Type == type);
+        var spec = new Specification<Audit>();
+        spec.Query.Where(x => x.Type == type);
+        return spec;
     }
 
     public static Specification<Audit> Active()
     {
-        return new Specification<Audit>(x =>
+        var spec = new Specification<Audit>();
+        spec.Query.Where(x =>
             x.Status == AuditStatus.Planned ||
             x.Status == AuditStatus.InProgress ||
             x.Status == AuditStatus.OnHold);
+        return spec;
     }
 
     public static Specification<Audit> Completed()
     {
-        return new Specification<Audit>(x =>
+        var spec = new Specification<Audit>();
+        spec.Query.Where(x =>
             x.Status == AuditStatus.Completed ||
             x.Status == AuditStatus.Cancelled);
+        return spec;
     }
 
     public static Specification<Audit> ByLeadAuditor(Guid auditorId)
     {
-        return new Specification<Audit>(x => x.LeadAuditorId == auditorId);
+        var spec = new Specification<Audit>();
+        spec.Query.Where(x => x.LeadAuditorId == auditorId);
+        return spec;
     }
 
     public static Specification<Audit> ByAuditor(Guid auditorId)
     {
-        return new Specification<Audit>(x =>
+        var spec = new Specification<Audit>();
+        spec.Query.Where(x =>
             x.LeadAuditorId == auditorId ||
             x.Assignments.Any(a => a.AuditorId == auditorId && a.RemovedAt == null));
+        return spec;
     }
 
     public static Specification<Audit> PlannedBetween(DateTime start, DateTime end)
     {
-        return new Specification<Audit>(x => x.PlannedStartDate >= start && x.PlannedEndDate <= end);
+        var spec = new Specification<Audit>();
+        spec.Query.Where(x => x.PlannedStartDate >= start && x.PlannedEndDate <= end);
+        return spec;
     }
 
     public static Specification<Audit> Overdue()
     {
-        return new Specification<Audit>(x =>
+        var spec = new Specification<Audit>();
+        spec.Query.Where(x =>
             x.PlannedEndDate < DateTime.UtcNow &&
             (x.Status == AuditStatus.Planned || x.Status == AuditStatus.InProgress || x.Status == AuditStatus.OnHold));
+        return spec;
     }
 
     public static Specification<Audit> WithFindings()
     {
-        return new Specification<Audit>(x => x.Findings.Any());
+        var spec = new Specification<Audit>();
+        spec.Query.Where(x => x.Findings.Any());
+        return spec;
     }
 
     public static Specification<Audit> WithOpenFindings()
     {
-        return new Specification<Audit>(x =>
+        var spec = new Specification<Audit>();
+        spec.Query.Where(x =>
             x.Findings.Any(f => f.Status == FindingStatus.Open || f.Status == FindingStatus.UnderReview));
+        return spec;
     }
 
     public static Specification<Audit> WithOverdueCorrectiveActions()
     {
-        return new Specification<Audit>(x =>
+        var spec = new Specification<Audit>();
+        spec.Query.Where(x =>
             x.CorrectiveActions.Any(ca =>
                 ca.Status != CorrectiveActionStatus.Completed &&
                 ca.Status != CorrectiveActionStatus.Verified &&
                 ca.DueDate < DateTime.UtcNow));
+        return spec;
     }
 }

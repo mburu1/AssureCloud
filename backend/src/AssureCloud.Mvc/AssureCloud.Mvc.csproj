@@ -27,7 +27,6 @@
     <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" />
     <PackageReference Include="AspNetCoreRateLimit" />
     <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" />
-    <PackageReference Include="Microsoft.AspNetCore.HttpLogging" />
   </ItemGroup>
 
   <ItemGroup>

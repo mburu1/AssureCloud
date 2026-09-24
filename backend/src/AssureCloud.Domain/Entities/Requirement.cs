@@ -13,8 +13,8 @@ public class Requirement : BaseEntity
     public string? Description { get; private set; }
     public string? Code { get; private set; }
     public int Order { get; private set; }
-    public RequirementType Type { get; private set; }
-    public RequirementStatus Status { get; private set; } = RequirementStatus.Draft;
+    public RequirementType? Type { get; private set; }
+    public RequirementStatus? Status { get; private set; } = RequirementStatus.Draft;
     public bool IsMandatory { get; private set; } = true;
     public decimal Weight { get; private set; } = 1.0m;
     public string? Guidance { get; private set; }
@@ -30,14 +30,14 @@ public class Requirement : BaseEntity
         string? description = null,
         string? code = null,
         int order = 0,
-        RequirementType type = RequirementType.Standard)
+        RequirementType? type = null)
     {
         StandardId = standardId;
         Name = name ?? throw new ArgumentNullException(nameof(name));
         Description = description;
         Code = code;
         Order = order;
-        Type = type;
+        Type = type ?? RequirementType.Standard;
         CreatedAt = DateTime.UtcNow;
     }
 
@@ -56,7 +56,7 @@ public class Requirement : BaseEntity
         Description = description;
         Code = code;
         Order = order;
-        if (type.HasValue) Type = type.Value;
+        if (type != null) Type = type;
         if (isMandatory.HasValue) IsMandatory = isMandatory.Value;
         if (weight.HasValue) Weight = weight.Value;
         Guidance = guidance;

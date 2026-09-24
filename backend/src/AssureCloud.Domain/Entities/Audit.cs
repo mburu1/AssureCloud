@@ -15,7 +15,7 @@ public class Audit : BaseEntity
     public Guid? AssessmentId { get; private set; }
     public string? Title { get; private set; }
     public string? Description { get; private set; }
-    public AuditType Type { get; private set; }
+    public AuditType? Type { get; private set; }
     public AuditStatus Status { get; private set; } = AuditStatus.Planned;
     public DateTime PlannedStartDate { get; private set; }
     public DateTime PlannedEndDate { get; private set; }
@@ -63,7 +63,7 @@ public class Audit : BaseEntity
     {
         Title = title;
         Description = description;
-        if (type.HasValue) Type = type.Value;
+        if (type != null) Type = type;
         if (plannedStartDate.HasValue) PlannedStartDate = plannedStartDate.Value;
         if (plannedEndDate.HasValue) PlannedEndDate = plannedEndDate.Value;
         Scope = scope;
@@ -172,7 +172,7 @@ public class AuditAssignment : BaseEntity
 {
     public Guid AuditId { get; private set; }
     public Guid AuditorId { get; private set; }
-    public AuditRole Role { get; private set; }
+    public AuditRole? Role { get; private set; }
     public DateTime AssignedAt { get; private set; } = DateTime.UtcNow;
     public DateTime? RemovedAt { get; private set; }
 

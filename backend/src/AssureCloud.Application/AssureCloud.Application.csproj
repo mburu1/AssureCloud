@@ -20,7 +20,6 @@
     <PackageReference Include="AutoMapper" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
-    <PackageReference Include="System.ComponentModel.DataAnnotations" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
   </ItemGroup>
 

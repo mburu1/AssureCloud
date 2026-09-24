@@ -10,49 +10,67 @@ public static class OrganizationSpecifications
 {
     public static Specification<Organization> ById(Guid id)
     {
-        return new Specification<Organization>(x => x.Id == id);
+        var spec = new Specification<Organization>();
+        spec.Query.Where(x => x.Id == id);
+        return spec;
     }
 
     public static Specification<Organization> ByName(string name)
     {
-        return new Specification<Organization>(x => x.Name == name);
+        var spec = new Specification<Organization>();
+        spec.Query.Where(x => x.Name == name);
+        return spec;
     }
 
     public static Specification<Organization> ByStatus(OrganizationStatus status)
     {
-        return new Specification<Organization>(x => x.Status == status);
+        var spec = new Specification<Organization>();
+        spec.Query.Where(x => x.Status == status);
+        return spec;
     }
 
     public static Specification<Organization> Active()
     {
-        return new Specification<Organization>(x => x.Status == OrganizationStatus.Active);
+        var spec = new Specification<Organization>();
+        spec.Query.Where(x => x.Status == OrganizationStatus.Active);
+        return spec;
     }
 
     public static Specification<Organization> WithLocations()
     {
-        return new Specification<Organization>(x => x.Locations.Any());
+        var spec = new Specification<Organization>();
+        spec.Query.Where(x => x.Locations.Any());
+        return spec;
     }
 
     public static Specification<Organization> WithSuppliers()
     {
-        return new Specification<Organization>(x => x.Suppliers.Any());
+        var spec = new Specification<Organization>();
+        spec.Query.Where(x => x.Suppliers.Any());
+        return spec;
     }
 
     public static Specification<Organization> Search(string searchTerm)
     {
-        return new Specification<Organization>(x =>
+        var spec = new Specification<Organization>();
+        spec.Query.Where(x =>
             x.Name.Contains(searchTerm) ||
             (x.Description != null && x.Description.Contains(searchTerm)) ||
             (x.RegistrationNumber != null && x.RegistrationNumber.Contains(searchTerm)));
+        return spec;
     }
 
     public static Specification<Organization> ByParentOrganization(Guid parentId)
     {
-        return new Specification<Organization>(x => x.ParentOrganizationId == parentId);
+        var spec = new Specification<Organization>();
+        spec.Query.Where(x => x.ParentOrganizationId == parentId);
+        return spec;
     }
 
     public static Specification<Organization> TopLevel()
     {
-        return new Specification<Organization>(x => x.ParentOrganizationId == null);
+        var spec = new Specification<Organization>();
+        spec.Query.Where(x => x.ParentOrganizationId == null);
+        return spec;
     }
 }

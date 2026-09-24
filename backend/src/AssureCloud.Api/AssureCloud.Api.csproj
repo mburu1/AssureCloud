@@ -31,8 +31,7 @@
     <PackageReference Include="AspNetCoreRateLimit" />
     <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" />
     <PackageReference Include="Microsoft.AspNetCore.HttpOverrides" />
-    <PackageReference Include="Microsoft.AspNetCore.HttpLogging" />
-    <PackageReference Include="Elastic.Apm.NetFx" />
+    <PackageReference Include="Elastic.Apm.NetCoreAll" />
   </ItemGroup>
 
   <ItemGroup>

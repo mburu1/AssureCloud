@@ -8,8 +8,8 @@ public class AuditFinding : BaseEntity
     public Guid AuditId { get; private set; }
     public string Title { get; private set; } = string.Empty;
     public string Description { get; private set; } = string.Empty;
-    public FindingSeverity Severity { get; private set; }
-    public FindingCategory Category { get; private set; }
+    public FindingSeverity? Severity { get; private set; }
+    public FindingCategory? Category { get; private set; }
     public Guid? CriterionId { get; private set; }
     public string? Requirement { get; private set; }
     public FindingStatus Status { get; private set; } = FindingStatus.Open;

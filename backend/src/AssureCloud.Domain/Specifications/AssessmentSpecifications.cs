@@ -10,74 +10,100 @@ public static class AssessmentSpecifications
 {
     public static Specification<Assessment> ById(Guid id)
     {
-        return new Specification<Assessment>(x => x.Id == id);
+        var spec = new Specification<Assessment>();
+        spec.Query.Where(x => x.Id == id);
+        return spec;
     }
 
     public static Specification<Assessment> ByOrganization(Guid organizationId)
     {
-        return new Specification<Assessment>(x => x.OrganizationId == organizationId);
+        var spec = new Specification<Assessment>();
+        spec.Query.Where(x => x.OrganizationId == organizationId);
+        return spec;
     }
 
     public static Specification<Assessment> ByProgram(Guid programId)
     {
-        return new Specification<Assessment>(x => x.ProgramId == programId);
+        var spec = new Specification<Assessment>();
+        spec.Query.Where(x => x.ProgramId == programId);
+        return spec;
     }
 
     public static Specification<Assessment> ByStandard(Guid standardId)
     {
-        return new Specification<Assessment>(x => x.StandardId == standardId);
+        var spec = new Specification<Assessment>();
+        spec.Query.Where(x => x.StandardId == standardId);
+        return spec;
     }
 
     public static Specification<Assessment> ByStatus(AssessmentStatus status)
     {
-        return new Specification<Assessment>(x => x.Status == status);
+        var spec = new Specification<Assessment>();
+        spec.Query.Where(x => x.Status == status);
+        return spec;
     }
 
     public static Specification<Assessment> Active()
     {
-        return new Specification<Assessment>(x =>
+        var spec = new Specification<Assessment>();
+        spec.Query.Where(x =>
             x.Status == AssessmentStatus.Draft ||
             x.Status == AssessmentStatus.InProgress ||
             x.Status == AssessmentStatus.OnHold);
+        return spec;
     }
 
     public static Specification<Assessment> Completed()
     {
-        return new Specification<Assessment>(x => x.Status == AssessmentStatus.Completed);
+        var spec = new Specification<Assessment>();
+        spec.Query.Where(x => x.Status == AssessmentStatus.Completed);
+        return spec;
     }
 
     public static Specification<Assessment> ByAssessor(Guid assessorId)
     {
-        return new Specification<Assessment>(x =>
+        var spec = new Specification<Assessment>();
+        spec.Query.Where(x =>
             x.LeadAssessorId == assessorId ||
             x.Assignments.Any(a => a.AssessorId == assessorId && a.RemovedAt == null));
+        return spec;
     }
 
     public static Specification<Assessment> ByReviewer(Guid reviewerId)
     {
-        return new Specification<Assessment>(x => x.ReviewerId == reviewerId);
+        var spec = new Specification<Assessment>();
+        spec.Query.Where(x => x.ReviewerId == reviewerId);
+        return spec;
     }
 
     public static Specification<Assessment> ScheduledBetween(DateTime start, DateTime end)
     {
-        return new Specification<Assessment>(x => x.ScheduledDate >= start && x.ScheduledDate <= end);
+        var spec = new Specification<Assessment>();
+        spec.Query.Where(x => x.ScheduledDate >= start && x.ScheduledDate <= end);
+        return spec;
     }
 
     public static Specification<Assessment> Overdue()
     {
-        return new Specification<Assessment>(x =>
+        var spec = new Specification<Assessment>();
+        spec.Query.Where(x =>
             x.ScheduledDate < DateTime.UtcNow &&
             (x.Status == AssessmentStatus.Draft || x.Status == AssessmentStatus.InProgress || x.Status == AssessmentStatus.OnHold));
+        return spec;
     }
 
     public static Specification<Assessment> WithFindings()
     {
-        return new Specification<Assessment>(x => x.Findings.Any());
+        var spec = new Specification<Assessment>();
+        spec.Query.Where(x => x.Findings.Any());
+        return spec;
     }
 
     public static Specification<Assessment> WithOpenFindings()
     {
-        return new Specification<Assessment>(x =>
+        var spec = new Specification<Assessment>();
+        spec.Query.Where(x =>
             x.Findings.Any(f => f.Status == FindingStatus.Open || f.Status == FindingStatus.UnderReview));
+        return spec;
     }
 }

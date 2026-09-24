@@ -9,8 +9,8 @@ public class Control : BaseEntity
     public string Name { get; private set; } = string.Empty;
     public string? Description { get; private set; }
     public string? Code { get; private set; }
-    public ControlType Type { get; private set; }
-    public ControlStatus Status { get; private set; } = ControlStatus.Draft;
+    public ControlType? Type { get; private set; }
+    public ControlStatus? Status { get; private set; } = ControlStatus.Draft;
     public int Frequency { get; private set; } = 1;
     public string? FrequencyUnit { get; private set; }
     public string? ResponsibleRole { get; private set; }
@@ -25,13 +25,13 @@ public class Control : BaseEntity
         string name,
         string? description = null,
         string? code = null,
-        ControlType type = ControlType.Preventive)
+        ControlType? type = null)
     {
         CriterionId = criterionId;
         Name = name ?? throw new ArgumentNullException(nameof(name));
         Description = description;
         Code = code;
-        Type = type;
+        Type = type ?? ControlType.Preventive;
         FrequencyUnit = "Month";
         CreatedAt = DateTime.UtcNow;
     }
@@ -52,8 +52,8 @@ public class Control : BaseEntity
         Name = name ?? throw new ArgumentNullException(nameof(name));
         Description = description;
         Code = code;
-        if (type.HasValue) Type = type.Value;
-        if (status.HasValue) Status = status.Value;
+        if (type != null) Type = type;
+        if (status != null) Status = status;
         if (frequency.HasValue) Frequency = frequency.Value;
         if (frequencyUnit != null) FrequencyUnit = frequencyUnit;
         ResponsibleRole = responsibleRole;

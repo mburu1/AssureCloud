@@ -13,7 +13,7 @@ public class Criterion : BaseEntity
     public string? Description { get; private set; }
     public string? Code { get; private set; }
     public int Order { get; private set; }
-    public ScoringMethod ScoringMethod { get; private set; }
+    public ScoringMethod? ScoringMethod { get; private set; }
     public decimal MaxScore { get; private set; } = 100;
     public decimal PassThreshold { get; private set; } = 70;
     public bool IsCritical { get; private set; }
@@ -30,14 +30,14 @@ public class Criterion : BaseEntity
         string? description = null,
         string? code = null,
         int order = 0,
-        ScoringMethod scoringMethod = ScoringMethod.Percentage)
+        ScoringMethod? scoringMethod = null)
     {
         RequirementId = requirementId;
         Name = name ?? throw new ArgumentNullException(nameof(name));
         Description = description;
         Code = code;
         Order = order;
-        ScoringMethod = scoringMethod;
+        ScoringMethod = scoringMethod ?? ScoringMethod.Percentage;
         CreatedAt = DateTime.UtcNow;
     }
 
@@ -57,7 +57,7 @@ public class Criterion : BaseEntity
         Description = description;
         Code = code;
         Order = order;
-        if (scoringMethod.HasValue) ScoringMethod = scoringMethod.Value;
+        if (scoringMethod != null) ScoringMethod = scoringMethod;
         if (maxScore.HasValue) MaxScore = maxScore.Value;
         if (passThreshold.HasValue) PassThreshold = passThreshold.Value;
         if (isCritical.HasValue) IsCritical = isCritical.Value;
